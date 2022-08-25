@@ -1,0 +1,2 @@
+# Animaker
+Pythonのmatplotlibを使って関数のgifアニメーションを作成できるモジュール
