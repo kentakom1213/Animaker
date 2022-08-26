@@ -17,7 +17,7 @@ f1 = [
     "plot",
     (
         lambda i: t,
-        lambda i: np.sqrt(np.abs(t)) - np.sqrt(1 - t**2) * np.sin(i*pi/5),
+        lambda i: np.sqrt(np.abs(t)) - np.sqrt(1 - t**2) * abs(np.sin(i*pi))
     ),
     {"color": "r"}
 ]
@@ -26,7 +26,7 @@ f2 = [
     "plot",
     (
         lambda i: t,
-        lambda i: np.sqrt(np.abs(t)) + np.sqrt(1 - t**2) * np.sin(i*pi/5)
+        lambda i: np.sqrt(np.abs(t)) + np.sqrt(1 - t**2) * abs(np.sin(i*pi/5))
     ),
     {"color": "r"}
 ]
