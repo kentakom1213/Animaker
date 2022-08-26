@@ -21,8 +21,8 @@ t = np.linspace(*anime.xlim, 1000)
 heart = Plot(
     PlotType.FILL,
     lambda i: t,
-    lambda i: np.sqrt(np.abs(t)) - np.sqrt(1 - t**2) * (np.sin(i*pi) / 5 + 0.6),
-    lambda i: np.sqrt(np.abs(t)) + np.sqrt(1 - t**2) * (np.sin(i*pi) / 5 + 0.6),
+    lambda i: np.sqrt(np.abs(t)) - np.sqrt(1 - t**2) * (np.sin(i*pi) / 4 + 0.6),
+    lambda i: np.sqrt(np.abs(t)) + np.sqrt(1 - t**2) * (np.sin(i*pi) / 4 + 0.6),
     options={ "color": "r" }
 )
 
@@ -30,4 +30,4 @@ heart = Plot(
 anime.add_plot(heart)
 
 # 描画
-anime.render("test/out/move_heart_animation.gif")
+anime.render("example/out/move_heart_animation.gif")

@@ -43,4 +43,4 @@ anime.add_plot(sin_bar)
 anime.add_plot(dot)
 
 # 描画
-anime.render("test/out/move_dot_animation.gif")
+anime.render("example/out/move_dot_animation.gif")

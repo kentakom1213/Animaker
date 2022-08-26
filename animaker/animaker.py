@@ -16,7 +16,6 @@ class PlotType(Enum):
     PLOT = auto()
     SCATTER = auto()
     FILL = auto()
-    IMAGE = auto()
 
 
 class Plot:
@@ -36,13 +35,10 @@ class Plot:
     yfunc2        : (float -> numpy.ndarray)
         `PlotType`が`FILL`のときに定義される。
         tからy軸の塗りつぶし領域の上限を生成する関数。
-    imagefunc     : (float -> numpy.ndarray)
-        `PlotType`が`Image`の場合に定義される。
-        2次元のnumpy配列を返す。
     options       : dict
         プロット関数に渡すオプション
     """
-    def __init__(self, plot_type, xfunc, yfunc, yfunc2=None, imagefunc=None, options={}):
+    def __init__(self, plot_type, xfunc, yfunc, yfunc2=None, options={}):
         """
         初期値の設定
         """
@@ -50,7 +46,6 @@ class Plot:
         self.xfunc = xfunc
         self.yfunc = yfunc
         self.yfunc2 = yfunc2
-        self.imagefunc = imagefunc
         self.options = options
     
     def render(self, ax, t):
@@ -71,8 +66,37 @@ class Plot:
         elif self.plot_type == PlotType.FILL:
             y_min, y_max = self.yfunc, self.yfunc2
             ax.fill_between(self.xfunc(t), y_min(t), y_max(t), **self.options)
-        elif self.plot_type == PlotType.IMAGE:
-            ax.imshow(self.imagefunc(t), **self.options)
+
+
+class PlotImage:
+    """
+    プロット用の関数の情報を保存する。
+
+    Attributes
+    ----------
+    imagefunc     : (float -> numpy.ndarray)
+        `PlotType`が`Image`の場合に定義される。
+        2次元のnumpy配列を返す。
+    """
+    def __init__(self, imagefunc, options={}):
+        """
+        初期値の設定
+        """
+        self.imagefunc = imagefunc
+        self.options = options
+    
+    def render(self, ax, t):
+        """
+        渡されたaxオブジェクトに与えられた時点`t`での関数をプロットする
+
+        Paramaters
+        --------
+        ax        : matplotlib.axes._subplots.AxesSubplot
+            プロットする背景
+        t         : float
+            変化させるパラメータ
+        """
+        ax.imshow(self.imagefunc(t), **self.options)
 
 
 class Animaker:
