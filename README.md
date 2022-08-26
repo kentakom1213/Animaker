@@ -9,7 +9,7 @@ Pythonのmatplotlibを使って関数のgifアニメーションを作成でき�
 - [ソースコード](example/sin_curve_animation.py)
 
 ### 重ね合わせのプロット
-![パラメータ表示のアニメーション](example/out/move_circle_animation.gif)
+![パラメータ表示のアニメーション](example/out/move_dot_animation.gif)
 
 - [ソースコード](example/move_dot_animation.py)
 
