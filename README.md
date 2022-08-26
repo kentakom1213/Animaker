@@ -22,4 +22,4 @@ Pythonのmatplotlibを使って関数のgifアニメーションを作成でき�
 ### 動く画像のプロット
 ![歪む円のアニメーション](example/out/move_circle_animation.gif)
 
-- [ソースコード](example/out/move_circle_animation.gif)
+- [ソースコード](example/move_circle_animation.py)
