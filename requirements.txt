@@ -1,5 +1,4 @@
-# Editable install with no version control (animaker==0.0.0)
--e /Users/komotokenta/Docker/Animaker
+animaker==0.1
 cycler==0.11.0
 fonttools==4.37.1
 kiwisolver==1.4.4
