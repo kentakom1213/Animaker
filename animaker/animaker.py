@@ -115,7 +115,7 @@ class Animaker:
         """
         self.__plots.append(plot)
 
-    def render(self, save_name):
+    def render(self, save_name, grid=True):
         """
         アニメーションを描画し、保存する。
 
@@ -133,7 +133,7 @@ class Animaker:
             ax.set_aspect('equal')
             ax.set_xlim(self.xlim)
             ax.set_ylim(self.ylim)
-            ax.grid("on")
+            if grid: ax.grid("on")
 
             # 描画
             for plot in self.__plots:
