@@ -33,7 +33,7 @@ class Plot:
     yfunc         : (float -> numpy.ndarray)
         `PlotType`が`PLOT`,`SCATTER`のときに定義される。
         tからy軸を生成する関数。
-    yfuncs        : list[ (float -> numpy.ndarray) ]
+    yfunc2        : (float -> numpy.ndarray)
         `PlotType`が`FILL`のときに定義される。
         tからy軸の塗りつぶし領域の上限を生成する関数。
     imagefunc     : (float -> numpy.ndarray)
@@ -42,14 +42,14 @@ class Plot:
     options       : dict
         プロット関数に渡すオプション
     """
-    def __init__(self, plot_type, xfunc, yfunc, yfuncs=None, imagefunc=None, options={}):
+    def __init__(self, plot_type, xfunc, yfunc, yfunc2=None, imagefunc=None, options={}):
         """
         初期値の設定
         """
         self.plot_type = plot_type
         self.xfunc = xfunc
         self.yfunc = yfunc
-        self.yfuncs = yfuncs
+        self.yfunc2 = yfunc2
         self.imagefunc = imagefunc
         self.options = options
     
@@ -69,7 +69,7 @@ class Plot:
         elif self.plot_type == PlotType.SCATTER:
             ax.scatter(self.xfunc(t), self.yfunc(t), **self.options)
         elif self.plot_type == PlotType.FILL:
-            y_min, y_max = self.yfuncs
+            y_min, y_max = self.yfunc, self.yfunc2
             ax.fill_between(self.xfunc(t), y_min(t), y_max(t), **self.options)
         elif self.plot_type == PlotType.IMAGE:
             ax.imshow(self.imagefunc(t), **self.options)
@@ -81,14 +81,10 @@ class Animaker:
 
     Attributes
     ----------
-    fig           : matplotlib.figure.Figure, default matplotlib.pyplot.figure()
-        アニメーションの背景となるオブジェクト。
     xlim          : list, default [-1, 1]
         x座標の範囲。`[xmin, xmax]`で指定する。
     ylim          : list, default [-1, 1]
         y座標の範囲。`[ymin, ymax]`で指定する。
-    x             : numpy.ndarray, default numpy.linspace(*xlim, 1000)
-        x軸の値。
     time          : numpy.ndarray, default numpy.linspace(0, 1, 50)
         時間を表す変数、デフォルトでは0から1までを50コマに区切ったもの。
     __plots       : list[ Plot ]
@@ -105,7 +101,6 @@ class Animaker:
         """
         self.xlim = [-1, 1]
         self.ylim = [-1, 1]
-        self.x = np.linspace(*self.xlim, 1000)
         self.time = np.linspace(0, 1, frame)
         self.__plots = []
     
@@ -133,7 +128,7 @@ class Animaker:
         ims = []
 
         for t in self.time:
-            fig = plt.figure()
+            fig = plt.figure(facecolor="white")
             ax = fig.add_subplot()
             ax.set_aspect('equal')
             ax.set_xlim(self.xlim)
@@ -145,8 +140,7 @@ class Animaker:
                 plot.render(ax, t)
 
                 # メモリ解放
-                plt.clf()
-                plt.close()
+                plt.close(fig)
 
             # 画像を保存
             fig.canvas.draw()
@@ -160,3 +154,4 @@ class Animaker:
             del fig, ax
 
         ims[0].save(save_name, save_all=True, append_images=ims[1:])
+

@@ -1,5 +1,7 @@
 """
 `Plot`オブジェクトを直接定義し、アニメーションを作成する。
+
+- サインカーブを動かす
 """
 
 import numpy as np
@@ -20,23 +22,8 @@ sin_curve = Plot(
     lambda t: np.sin(x) * np.sin(t*2*np.pi),
 )
 
-cos_bar = Plot(
-    PlotType.PLOT,
-    lambda t: x,
-    lambda t: np.zeros_like(x) + np.cos(2*np.pi * t)
-)
-
-circle = Plot(
-    PlotType.SCATTER,
-    lambda t: np.cos(2*np.pi * t),
-    lambda t: np.sin(2*np.pi * t),
-    options={"color": "r"}
-)
-
 # グラフの追加
 anime.add_plot(sin_curve)
-anime.add_plot(cos_bar)
-anime.add_plot(circle)
 
 # 描画
-anime.render("test/move_sin.gif")
+anime.render("test/out/sin_curve_animation.gif")
