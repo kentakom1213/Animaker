@@ -6,6 +6,7 @@
 
 import numpy as np
 from numpy import pi
+
 from animaker.animaker import PlotType, Plot, Animaker
 
 # アニメーションの作成
@@ -30,4 +31,4 @@ heart = Plot(
 anime.add_plot(heart)
 
 # 描画
-anime.render("example/out/move_heart_animation.gif")
+anime.render("example/out/move_heart_animation.gif", loop=0)

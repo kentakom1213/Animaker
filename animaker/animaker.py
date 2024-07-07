@@ -7,7 +7,7 @@ from PIL import Image
 class PlotType(Enum):
     """
     プロットの方法を保存する
-    
+
     PLOT    : plt.plot
     SCATTER : plt.scatter
     FILL    : plt.fill_between
@@ -38,6 +38,7 @@ class Plot:
     options       : dict
         プロット関数に渡すオプション
     """
+
     def __init__(self, plot_type, xfunc, yfunc, yfunc2=None, options={}):
         """
         初期値の設定
@@ -47,7 +48,7 @@ class Plot:
         self.yfunc = yfunc
         self.yfunc2 = yfunc2
         self.options = options
-    
+
     def render(self, ax, t):
         """
         渡されたaxオブジェクトに与えられた時点`t`での関数をプロットする
@@ -78,13 +79,14 @@ class PlotImage:
         `PlotType`が`Image`の場合に定義される。
         2次元のnumpy配列を返す。
     """
+
     def __init__(self, imagefunc, options={}):
         """
         初期値の設定
         """
         self.imagefunc = imagefunc
         self.options = options
-    
+
     def render(self, ax, t):
         """
         渡されたaxオブジェクトに与えられた時点`t`での関数をプロットする
@@ -114,6 +116,7 @@ class Animaker:
     __plots       : list[ Plot ]
         レンダリング時にプロットする関数を保存するリスト
     """
+
     def __init__(self, frame):
         """
         Animakerクラスの初期化を行う。
@@ -127,7 +130,7 @@ class Animaker:
         self.ylim = [-1, 1]
         self.time = np.linspace(0, 1, frame)
         self.__plots = []
-    
+
     def add_plot(self, plot):
         """
         x軸に対しての陽関数曲線をプロットする。
@@ -139,7 +142,7 @@ class Animaker:
         """
         self.__plots.append(plot)
 
-    def render(self, save_name, grid=True):
+    def render(self, save_name, grid=True, loop=None, duration=0.1):
         """
         アニメーションを描画し、保存する。
 
@@ -157,7 +160,8 @@ class Animaker:
             ax.set_aspect('equal')
             ax.set_xlim(self.xlim)
             ax.set_ylim(self.ylim)
-            if grid: ax.grid("on")
+            if grid:
+                ax.grid("on")
 
             # 描画
             for plot in self.__plots:
@@ -177,5 +181,5 @@ class Animaker:
             # figを削除
             del fig, ax
 
-        ims[0].save(save_name, save_all=True, append_images=ims[1:])
-
+        ims[0].save(save_name, save_all=True, append_images=ims[1:],
+                    loop=loop, duration=duration)

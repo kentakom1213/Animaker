@@ -5,6 +5,7 @@
 """
 
 import numpy as np
+
 from animaker.animaker import PlotType, Plot, Animaker
 
 # アニメーションの作成
@@ -26,4 +27,4 @@ sin_curve = Plot(
 anime.add_plot(sin_curve)
 
 # 描画
-anime.render("example/out/sin_curve_animation.gif")
+anime.render("example/out/sin_curve_animation.gif", loop=0)

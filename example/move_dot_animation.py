@@ -5,6 +5,7 @@
 """
 
 import numpy as np
+
 from animaker.animaker import PlotType, Plot, Animaker
 
 # アニメーションの作成
@@ -43,4 +44,4 @@ anime.add_plot(sin_bar)
 anime.add_plot(dot)
 
 # 描画
-anime.render("example/out/move_dot_animation.gif")
+anime.render("example/out/move_dot_animation.gif", loop=0)
